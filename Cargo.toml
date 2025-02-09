@@ -1,0 +1,27 @@
+[package]
+name = "alloy-to-reth-types"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+eyre = "0.6.12"
+tokio = { version = "1.43.0", features = ["rt-multi-thread"] }
+
+# alloy
+alloy-provider = { version = "0.11.0" }
+alloy-rpc-types = "0.11.0"
+alloy-rpc-types-eth = "0.11.0"
+
+# reth
+reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1a4f544", features = ["serde-bincode-compat"] }
+reth-primitives-traits = { git = "https://github.com/paradigmxyz/reth", rev = "1a4f544" }
+
+# op-alloy
+#op-alloy-rpc-types = "0.10.2"
+#op-alloy-consensus = "0.10.2"
+#op-alloy-network = "0.10.2"
+#op-alloy-provider = "0.10.2"
+
+# op-reth
+#reth-optimism-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1a4f544", features = ["optimism", "serde", "serde-bincode-compat", "reth-codec"] }
