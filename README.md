@@ -8,5 +8,12 @@ To test reth ExEx, it can be useful to fetch blocks and transactions using an RP
   - Get Header
   - Get Transaction
 
+
+## Run
+```bash
+cargo run --features eth
+cargo run --features optimism
+```
+
 ## License
 This project is licensed under the [Apache 2.0](./LICENSE-APACHE) or [MIT](./LICENSE-MIT).
