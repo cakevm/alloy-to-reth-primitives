@@ -9,19 +9,19 @@ eyre = "0.6.12"
 tokio = { version = "1.43.0", features = ["rt-multi-thread"] }
 
 # alloy
-alloy-provider = { version = "0.11.0" }
-alloy-rpc-types = "0.11.0"
-alloy-rpc-types-eth = "0.11.0"
+alloy-provider = { version = "0.11.1" }
+alloy-rpc-types = "0.11.1"
+alloy-rpc-types-eth = "0.11.1"
 
 # reth
-reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78" }
-reth-primitives-traits = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78" }
+reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+reth-primitives-traits = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
 
 # eth-reth
-reth-ethereum-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78", features = ["reth-codec"] }
+reth-ethereum-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8", features = ["reth-codec"] }
 
 # op-reth
-reth-optimism-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78", features = [
+reth-optimism-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8", features = [
   "alloy-compat",
   "optimism",
   "reth-codec",
