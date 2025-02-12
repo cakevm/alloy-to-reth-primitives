@@ -14,14 +14,22 @@ alloy-rpc-types = "0.11.0"
 alloy-rpc-types-eth = "0.11.0"
 
 # reth
-reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1a4f544", features = ["serde-bincode-compat"] }
-reth-primitives-traits = { git = "https://github.com/paradigmxyz/reth", rev = "1a4f544" }
+reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78" }
+reth-primitives-traits = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78" }
 
-# op-alloy
-#op-alloy-rpc-types = "0.10.2"
-#op-alloy-consensus = "0.10.2"
-#op-alloy-network = "0.10.2"
-#op-alloy-provider = "0.10.2"
+# eth-reth
+reth-ethereum-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78", features = ["reth-codec"] }
 
 # op-reth
-#reth-optimism-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1a4f544", features = ["optimism", "serde", "serde-bincode-compat", "reth-codec"] }
+reth-optimism-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "ea40f78", features = [
+  "alloy-compat",
+  "optimism",
+  "reth-codec",
+  "serde",
+] }
+
+
+[features]
+default = []
+eth = []
+optimism = []

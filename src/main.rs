@@ -4,27 +4,45 @@ use alloy_provider::network::AnyNetwork;
 use alloy_provider::{Provider, ProviderBuilder};
 use alloy_rpc_types_eth::BlockId;
 use eyre::eyre;
-use reth_primitives::{Block, BlockBody, EthPrimitives};
+
+use reth_primitives::{Block, BlockBody};
 use reth_primitives_traits::NodePrimitives;
+
+#[cfg(feature = "eth")]
+use reth_ethereum_primitives::EthPrimitives;
+#[cfg(feature = "optimism")]
+use reth_optimism_primitives::OpPrimitives;
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
+    #[cfg(feature = "eth")]
+    let node_primitives = EthPrimitives::default();
+    #[cfg(feature = "optimism")]
+    let node_primitives = OpPrimitives;
+
+    #[cfg(feature = "eth")]
     let rpc_url = "https://eth.merkle.io".parse()?;
+    #[cfg(feature = "optimism")]
+    let rpc_url = "https://base.merkle.io".parse()?;
+
     let provider = ProviderBuilder::new().network::<AnyNetwork>().on_http(rpc_url);
 
     // Get latest block as NodePrimitives::Block.
-    let block = get_block_reth_typed(provider, EthPrimitives::default()).await?;
+    let block = get_block_reth_typed(provider, node_primitives).await?;
     println!("Block: {:?}", block);
 
     Ok(())
 }
 
-async fn get_block_reth_typed<F, P, NP>(provider: FillProvider<F, P, AnyNetwork>, _np: NP) -> eyre::Result<NP::Block>
-where
+async fn get_block_reth_typed<
     F: TxFiller<AnyNetwork>,
     P: Provider<AnyNetwork>,
-    NP: NodePrimitives<Block = <EthPrimitives as NodePrimitives>::Block, SignedTx = <EthPrimitives as NodePrimitives>::SignedTx>,
-{
+    #[cfg(feature = "eth")] NP: NodePrimitives<Block = <EthPrimitives as NodePrimitives>::Block, SignedTx = <EthPrimitives as NodePrimitives>::SignedTx>,
+    #[cfg(feature = "optimism")] NP: NodePrimitives<Block = <OpPrimitives as NodePrimitives>::Block, SignedTx = <OpPrimitives as NodePrimitives>::SignedTx>,
+>(
+    provider: FillProvider<F, P, AnyNetwork>,
+    _np: NP,
+) -> eyre::Result<NP::Block> {
     // Get latest block number.
     let latest_block_opt = provider.get_block(BlockId::latest(), BlockTransactionsKind::Full).await?;
     let Some(latest_block) = latest_block_opt else {

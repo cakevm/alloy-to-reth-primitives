@@ -10,7 +10,8 @@ run:
 	cargo run
 
 test:
-	cargo test
+	cargo test --features eth
+	cargo test --features optimism
 
 clean:
 	cargo clean
@@ -22,7 +23,8 @@ fmt-check:
 	cargo fmt --all --check
 
 clippy:
-	cargo clippy --all --all-features -- -D warnings
+	cargo clippy --all --features eth -- -D warnings
+	cargo clippy --all --features optimism -- -D warnings
 
 taplo:
 	taplo format
