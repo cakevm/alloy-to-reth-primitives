@@ -15,12 +15,9 @@ async fn main() -> eyre::Result<()> {
     let withdrawals = block.withdrawals;
     let BlockTransactions::Full(transactions) = block.transactions else { unimplemented!() };
 
-    // the trait `std::convert::From<alloy_rpc_types_eth::Transaction>` is not implemented
-    // for `alloy_consensus::transaction::envelope::EthereumTxEnvelope<alloy_consensus::transaction::eip4844::TxEip4844>`
-
     let transactions = transactions
         .into_iter()
-        .map(|tx| tx.into()) // <-- here
+        .map(|tx| tx.into_inner().into()) // <-- here
         .collect::<Vec<<EthPrimitives as NodePrimitives>::SignedTx>>();
 
     let body = BlockBody::<<EthPrimitives as NodePrimitives>::SignedTx> {
